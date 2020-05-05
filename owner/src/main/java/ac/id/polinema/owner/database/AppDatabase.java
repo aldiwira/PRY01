@@ -14,5 +14,6 @@ import ac.id.polinema.owner.model.UserModel;
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract PriceDao priceDao();
+    public abstract UserDao userDao();
 
 }

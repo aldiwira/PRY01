@@ -1,6 +1,8 @@
 package ac.id.polinema.delaundry;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,6 +16,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import ac.id.polinema.delaundry.model.DefaultValue;
 import ac.id.polinema.delaundry.model.PriceList;
 import ac.id.polinema.delaundry.model.PriceModel;
 import ac.id.polinema.delaundry.repository.PriceRepository;
@@ -23,7 +26,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static ac.id.polinema.delaundry.repository.Utils.showMessage;
+import static ac.id.polinema.delaundry.Utils.showMessage;
 
 public class CreateTransactionActivity extends AppCompatActivity implements
         RecyclerViewAdapter.Bind<PriceList> {
@@ -34,13 +37,28 @@ public class CreateTransactionActivity extends AppCompatActivity implements
     private List<String> type;
 
     @BindView(R.id.rv_transaction) RecyclerView recyclerView;
+    @BindView(R.id.cg_methode) ChipGroup chipGroup;
 
     @OnClick(R.id.btn_order) void order() {
         TransactionRepository repository = new TransactionRepository(this);
-        repository.order(type).observe(this, result -> {
+        int methodChecked = chipGroup.getCheckedChipId();
+        String method = (methodChecked == R.id.chip_datang_ke_toko) ?
+                DefaultValue.MethodDelivery.DATANG_KE_TOKO : DefaultValue.MethodDelivery.ANTAR_JEMPUT;
+
+        if (type.size() == 0 && methodChecked == -1) {
+            Log.i(TAG, "order: User Error=Tidak memilih tipe dan method");
+            showMessage(CreateTransactionActivity.this,
+                    "Pilih Tipe Laundry dan Metode Delivery terlebih dahulu");
+            return;
+        }
+
+        Log.i(TAG, "order: method delivery="+ method);
+        Log.i(TAG, "order: list prices="+ type.toString());
+        repository.order(type, method).observe(this, result -> {
             if (result) {
-                String message = "Order Success";
-                showMessage(CreateTransactionActivity.this, message);
+                Toast.makeText(CreateTransactionActivity.this,
+                        "Berhasil Membuat Order Baru", Toast.LENGTH_LONG)
+                        .show();
                 finish();
             }
         });
@@ -69,6 +87,7 @@ public class CreateTransactionActivity extends AppCompatActivity implements
             chip.setText(price.getType());
             chip.setOnClickListener(click -> {
                 String label = chip.getText().toString();
+                Log.i(TAG, "bind: chip onClickListener; label checked="+ label);
                 if (chip.isChecked()) {
                     type.add(label);
                 } else {

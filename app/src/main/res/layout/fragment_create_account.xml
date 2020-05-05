@@ -7,6 +7,34 @@
     android:background="@color/backgroundLight"
     tools:context=".ui.create_account.CreateAccountFragment">
 
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="64dp"
+        android:fontFamily="@font/raleway_bold"
+        android:text="@string/intro_title_createaccount"
+        android:textAllCaps="true"
+        android:textColor="@color/colorPrimary"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toTopOf="@+id/NamaInputLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_subtitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:fontFamily="@font/lato_light"
+        android:text="@string/intro_subtitle_createaccount"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/NamaInputLayout"
         android:layout_width="0dp"
@@ -14,12 +42,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="16dp"
-        android:textColorHint="@android:color/primary_text_light"
-        app:boxBackgroundColor="@color/backgroundLight2"
-        app:boxStrokeColor="@color/colorPrimary"
-        app:helperTextTextColor="@android:color/primary_text_light"
-        app:hintTextColor="@android:color/primary_text_light"
-        app:helperTextEnabled="true"
+        android:theme="@style/AuthTextInputLayout"
         app:helperText="@string/helper_nama"
         app:layout_constraintBottom_toTopOf="@+id/AlamatInputLayout"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,8 +52,6 @@
             android:id="@+id/edt_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorHint="@android:color/primary_text_light"
-            android:textColor="@android:color/primary_text_light"
             android:hint="@string/label_nama" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -41,12 +62,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="16dp"
-        android:textColorHint="@android:color/primary_text_light"
-        app:boxBackgroundColor="@color/backgroundLight2"
-        app:boxStrokeColor="@color/colorPrimary"
-        app:helperTextTextColor="@android:color/primary_text_light"
-        app:hintTextColor="@android:color/primary_text_light"
-        app:helperTextEnabled="true"
+        android:theme="@style/AuthTextInputLayout"
         app:helperText="@string/helper_alamat"
         app:layout_constraintBottom_toTopOf="@+id/PasswordInputLayout"
         app:layout_constraintEnd_toEndOf="parent"
@@ -68,13 +84,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="16dp"
-        android:textColorHint="@android:color/primary_text_light"
-        app:boxBackgroundColor="@color/backgroundLight2"
-        app:boxStrokeColor="@color/colorPrimary"
-        app:helperTextTextColor="@android:color/primary_text_light"
-        app:hintTextColor="@android:color/primary_text_light"
-        app:helperTextEnabled="true"
-        app:endIconMode="password_toggle"
+        android:theme="@style/PasswordAuthTextInputLayout"
         app:helperText="Buat Password Minimal 8 Karakter"
         app:layout_constraintBottom_toTopOf="@+id/Konfirmasi_PasswordInputLayout"
         app:layout_constraintEnd_toEndOf="parent"
@@ -85,8 +95,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
-            android:textColorHint="@android:color/primary_text_light"
-            android:textColor="@android:color/primary_text_light"
             android:hint="@string/label_password" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -97,14 +105,8 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="32dp"
-        android:textColorHint="@android:color/primary_text_light"
-        app:boxBackgroundColor="@color/backgroundLight2"
-        app:boxStrokeColor="@color/colorPrimary"
-        app:helperTextTextColor="@android:color/primary_text_light"
-        app:hintTextColor="@android:color/primary_text_light"
+        android:theme="@style/PasswordAuthTextInputLayout"
         app:helperText="@string/helper_confirm_password"
-        app:helperTextEnabled="true"
-        app:endIconMode="password_toggle"
         app:layout_constraintBottom_toTopOf="@+id/btn_register"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -114,8 +116,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
-            android:textColorHint="@android:color/primary_text_light"
-            android:textColor="@android:color/primary_text_light"
             android:hint="@string/label_confirm_password" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -128,8 +128,9 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="32dp"
-        android:background="@drawable/btn_rounded"
         android:text="@string/label_create_account"
+        android:textAllCaps="false"
+        android:fontFamily="@font/raleway_bold"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

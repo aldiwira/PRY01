@@ -1,4 +1,4 @@
-package ac.id.polinema.delaundry.repository;
+package ac.id.polinema.delaundry;
 
 import android.app.Activity;
 import android.content.Context;
@@ -66,5 +66,26 @@ public class Utils {
         View view = ((Activity) context).findViewById(android.R.id.content);
         Snackbar.make(view, message, Snackbar.LENGTH_LONG)
                 .show();
+    }
+
+    public static String getDateTimeReadable(String timestamps, Integer index) {
+        String[] split = timestamps.split("T");
+        String date = split[0];
+        String time = split[1].split("\\.")[0];
+        if (index != null) {
+            return index == 0 ? date : time;
+        }
+
+        return date + " " + time;
+    }
+
+    public static String getDateReadable(String timestamp) {
+        if (timestamp.isEmpty()) return timestamp;
+        return getDateTimeReadable(timestamp, 0);
+    }
+
+    public static String getTimeReadable(String timestamp) {
+        if (timestamp.isEmpty()) return timestamp;
+        return getDateTimeReadable(timestamp, 1);
     }
 }

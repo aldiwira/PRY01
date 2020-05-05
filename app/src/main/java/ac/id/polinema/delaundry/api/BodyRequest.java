@@ -8,17 +8,21 @@ public class BodyRequest {
 
     public static class Order {
 
-        @SerializedName("id_user")
+        @SerializedName("idUser")
         private String idUser;
 
-        @SerializedName("id_harga")
+        @SerializedName("methodeDelivery")
+        private String methodDelivery;
+
+        @SerializedName("orders")
         private List<Integer> idPrices;
 
         public Order(){
         }
 
-        public Order(String idUser, List<Integer> idPrices) {
+        public Order(String idUser, String methodDelivery, List<Integer> idPrices) {
             this.idUser = idUser;
+            this.methodDelivery = methodDelivery;
             this.idPrices = idPrices;
         }
 
@@ -28,6 +32,14 @@ public class BodyRequest {
 
         public void setIdUser(String idUser) {
             this.idUser = idUser;
+        }
+
+        public String getMethodDelivery() {
+            return methodDelivery;
+        }
+
+        public void setMethodDelivery(String methodDelivery) {
+            this.methodDelivery = methodDelivery;
         }
 
         public List<Integer> getIdPrices() {

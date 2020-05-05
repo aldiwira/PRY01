@@ -1,5 +1,9 @@
 package ac.id.polinema.owner.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
@@ -10,60 +14,129 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-@Entity(tableName = "transactions")
-public class TransactionModel {
+@Entity(tableName = "transaksi")
+public class TransactionModel implements Parcelable {
 
     @PrimaryKey
-    @ColumnInfo(name = "no_nota")
-    @SerializedName("no_nota")
+    @NonNull
+    @ColumnInfo(name = "noNota")
+    @SerializedName("noNota")
     @Expose
-    private int noNota;
+    private String noNota;
 
-    @ColumnInfo(name = "status_pembayaran")
-    @SerializedName("status_pembayaran")
+    @ColumnInfo(name = "pembayaran")
+    @SerializedName("pembayaran")
     @Expose
-    private String statusPayment;
+    private String pay;
 
-    @ColumnInfo(name = "updated_at")
-    @SerializedName("updated_at")
+    @ColumnInfo(name = "statusPembayaran")
+    @SerializedName("statusPembayaran")
+    @Expose
+    private boolean statusPayment;
+
+    @ColumnInfo(name = "statusPengerjaan")
+    @SerializedName("statusPengerjaan")
+    @Expose
+    private boolean proggress;
+
+    @ColumnInfo(name = "methodeDelivery")
+    @SerializedName("methodeDelivery")
+    @Expose
+    private boolean methodDelivery;
+
+    @ColumnInfo(name = "updatedAt")
+    @SerializedName("updatedAt")
     @Expose
     private String updatedAt;
 
-    @ColumnInfo(name = "created_at")
-    @SerializedName("created_at")
+    @ColumnInfo(name = "createdAt")
+    @SerializedName("createdAt")
     @Expose
     private String createdAt;
 
-    @SerializedName("detail_transaction")
+    @SerializedName("detail_transactions")
     @Expose
     @Ignore
     private List<TransactionDetailModel> transactions;
 
+    @SerializedName("user")
+    @Expose
+    @Ignore
+    private UserModel user;
+
     public TransactionModel() {
     }
 
-    public TransactionModel(int noNota, String statusPayment, String updatedAt, String createdAt, List<TransactionDetailModel> transactions) {
+    @Ignore
+    public TransactionModel(@NonNull String noNota, String pay, boolean statusPayment,
+                            boolean proggress, boolean methodDelivery, String updatedAt,
+                            String createdAt) {
         this.noNota = noNota;
+        this.pay = pay;
         this.statusPayment = statusPayment;
+        this.proggress = proggress;
+        this.methodDelivery = methodDelivery;
+        this.updatedAt = updatedAt;
+        this.createdAt = createdAt;
+    }
+
+    @Ignore
+    public TransactionModel(@NonNull String noNota, String pay, boolean statusPayment,
+                            boolean proggress, boolean methodDelivery, String updatedAt,
+                            String createdAt, List<TransactionDetailModel> transactions) {
+        this.noNota = noNota;
+        this.pay = pay;
+        this.statusPayment = statusPayment;
+        this.proggress = proggress;
+        this.methodDelivery = methodDelivery;
         this.updatedAt = updatedAt;
         this.createdAt = createdAt;
         this.transactions = transactions;
     }
 
-    public int getNoNota() {
+    @NonNull
+    public String getNoNota() {
         return noNota;
     }
 
-    public void setNoNota(int noNota) {
+    public void setNoNota(@NonNull String noNota) {
         this.noNota = noNota;
     }
 
-    public String getStatusPayment() {
+    public String getPay() {
+        return pay;
+    }
+
+    public void setPay(String pay) {
+        this.pay = pay;
+    }
+
+    public boolean getStatusPayment() {
         return statusPayment;
     }
 
-    public void setStatusPayment(String statusPayment) {
+    public String getStatusPaymentString() {
+        return statusPayment ? "LUNAS" : "BELUM LUNAS";
+    }
+
+    public void setStatusPayment(boolean statusPayment) {
         this.statusPayment = statusPayment;
+    }
+
+    public boolean isProggress() {
+        return proggress;
+    }
+
+    public void setProggress(boolean proggress) {
+        this.proggress = proggress;
+    }
+
+    public boolean isMethodDelivery() {
+        return methodDelivery;
+    }
+
+    public void setMethodDelivery(boolean methodDelivery) {
+        this.methodDelivery = methodDelivery;
     }
 
     public String getUpdatedAt() {
@@ -89,4 +162,61 @@ public class TransactionModel {
     public void setTransactions(List<TransactionDetailModel> transactions) {
         this.transactions = transactions;
     }
+
+    public UserModel getUser() {
+        return user;
+    }
+
+    public void setUser(UserModel user) {
+        this.user = user;
+    }
+
+    public TransactionDetailModel[] getTransactionsArray() {
+        TransactionDetailModel[] array = new TransactionDetailModel[transactions.size()];
+        array = transactions.toArray(array);
+        return array;
+    }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.noNota);
+        dest.writeString(this.pay);
+        dest.writeByte(this.statusPayment ? (byte) 1 : (byte) 0);
+        dest.writeByte(this.proggress ? (byte) 1 : (byte) 0);
+        dest.writeByte(this.methodDelivery ? (byte) 1 : (byte) 0);
+        dest.writeString(this.updatedAt);
+        dest.writeString(this.createdAt);
+        dest.writeTypedList(this.transactions);
+        dest.writeParcelable(this.user, flags);
+    }
+
+    protected TransactionModel(Parcel in) {
+        this.noNota = in.readString();
+        this.pay = in.readString();
+        this.statusPayment = in.readByte() != 0;
+        this.proggress = in.readByte() != 0;
+        this.methodDelivery = in.readByte() != 0;
+        this.updatedAt = in.readString();
+        this.createdAt = in.readString();
+        this.transactions = in.createTypedArrayList(TransactionDetailModel.CREATOR);
+        this.user = in.readParcelable(UserModel.class.getClassLoader());
+    }
+
+    public static final Parcelable.Creator<TransactionModel> CREATOR = new Parcelable.Creator<TransactionModel>() {
+        @Override
+        public TransactionModel createFromParcel(Parcel source) {
+            return new TransactionModel(source);
+        }
+
+        @Override
+        public TransactionModel[] newArray(int size) {
+            return new TransactionModel[size];
+        }
+    };
 }

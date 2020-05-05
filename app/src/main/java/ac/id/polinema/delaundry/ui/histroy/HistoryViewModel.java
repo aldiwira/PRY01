@@ -1,19 +1,26 @@
 package ac.id.polinema.delaundry.ui.histroy;
 
+import android.app.Application;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
-public class HistoryViewModel extends ViewModel {
+import java.util.List;
 
-    private MutableLiveData<String> mText;
+import ac.id.polinema.delaundry.model.TransactionModel;
+import ac.id.polinema.delaundry.repository.TransactionRepository;
 
-    public HistoryViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is notifications fragment");
+public class HistoryViewModel extends AndroidViewModel {
+
+    private TransactionRepository repository;
+
+    public HistoryViewModel(@NonNull Application application) {
+        super(application);
+        repository = new TransactionRepository(application);
     }
 
-    public LiveData<String> getText() {
-        return mText;
+    public LiveData<List<TransactionModel>> getHistory() {
+        return repository.getDoneTransaction();
     }
 }

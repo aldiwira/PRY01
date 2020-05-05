@@ -16,8 +16,8 @@ import ac.id.polinema.delaundry.helper.ApiHelper;
 import ac.id.polinema.delaundry.helper.DbHelper;
 import ac.id.polinema.delaundry.model.PriceModel;
 
-import static ac.id.polinema.delaundry.repository.Utils.isConnected;
-import static ac.id.polinema.delaundry.repository.Utils.showMessage;
+import static ac.id.polinema.delaundry.Utils.isConnected;
+import static ac.id.polinema.delaundry.Utils.showMessage;
 
 public class PriceRepository {
 

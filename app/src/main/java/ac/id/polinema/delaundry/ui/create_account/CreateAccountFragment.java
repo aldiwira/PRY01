@@ -10,7 +10,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavDirections;
 
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
@@ -28,9 +27,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static ac.id.polinema.delaundry.repository.Utils.safeNavigate;
+import static ac.id.polinema.delaundry.Utils.safeNavigate;
 import static ac.id.polinema.delaundry.ui.create_account.CreateAccountFragmentDirections.createAccountToHome;
-import static androidx.navigation.Navigation.findNavController;
 
 public class CreateAccountFragment extends Fragment implements Validator.ValidationListener {
 
@@ -88,7 +86,7 @@ public class CreateAccountFragment extends Fragment implements Validator.Validat
         String address = this.address.getText().toString();
         String password = this.password.getText().toString();
         UserModel model = new UserModel();
-        model.setNoHandphone(noHandphone);
+        model.setNoHp(noHandphone);
         model.setName(name);
         model.setAddress(address);
         model.setPassword(password);

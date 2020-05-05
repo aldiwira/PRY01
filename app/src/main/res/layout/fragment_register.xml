@@ -5,38 +5,99 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundLight"
     tools:context=".ui.register.RegisterFragment">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginBottom="24dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/img_register"
+        app:layout_constraintBottom_toTopOf="@+id/title"
+        app:layout_constraintEnd_toEndOf="@+id/No_TeleponInputLayout"
+        app:layout_constraintStart_toStartOf="@+id/No_TeleponInputLayout"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/raleway_bold"
+        android:text="@string/intro_title_register"
+        android:textColor="@color/colorPrimary"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/subtitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/subtitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/lato_light"
+        android:text="@string/intro_subtitle_register"
+        android:textAlignment="center"
+        android:textColor="@android:color/primary_text_light"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintEnd_toEndOf="@+id/No_TeleponInputLayout"
+        app:layout_constraintStart_toStartOf="@+id/No_TeleponInputLayout" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.6" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/No_TeleponInputLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="16dp"
-        android:textColorHint="@android:color/primary_text_light"
-        app:counterEnabled="true"
-        app:counterMaxLength="15"
-        app:counterTextColor="@android:color/primary_text_light"
-        app:boxBackgroundColor="@color/backgroundLight2"
-        app:boxStrokeColor="@color/colorPrimary"
-        app:helperTextTextColor="@android:color/primary_text_light"
-        app:hintTextColor="@android:color/primary_text_light"
+        android:theme="@style/PhoneNumberAuthTextInputLayout"
         app:helperText="@string/helper_no_handphone"
-        app:helperTextEnabled="true"
-        app:layout_constraintBottom_toTopOf="@+id/tv_have_account"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edt_nohandphone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorHint="@android:color/primary_text_light"
+            android:hint="@string/label_no_handphone"
             android:textColor="@android:color/primary_text_light"
-            android:hint="@string/label_no_handphone" />
+            android:textColorHint="@android:color/primary_text_light" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/lbl_have_account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/lbl_want_login"
+        android:fontFamily="@font/lato_regular"
+        app:layout_constraintStart_toStartOf="@+id/No_TeleponInputLayout"
+        app:layout_constraintTop_toBottomOf="@+id/No_TeleponInputLayout" />
+
+    <TextView
+        android:id="@+id/tv_have_account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/label_login"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold"
+        android:fontFamily="@font/raleway_regular"
+        app:layout_constraintStart_toEndOf="@+id/lbl_have_account"
+        app:layout_constraintTop_toBottomOf="@+id/No_TeleponInputLayout" />
 
     <Button
         android:id="@+id/btn_register"
@@ -45,24 +106,11 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="24dp"
-        android:background="@drawable/btn_rounded"
         android:text="@string/label_register"
         android:textAllCaps="false"
+        android:fontFamily="@font/raleway_bold"
         android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_have_account"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:text="Saya sudah Memiliki Akun"
-        android:textStyle="bold"
-        android:textColor="@color/colorPrimary"
-        app:layout_constraintBottom_toTopOf="@id/btn_register"
-        app:layout_constraintStart_toStartOf="@+id/No_TeleponInputLayout" />
-
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_have_account" />
 </androidx.constraintlayout.widget.ConstraintLayout>

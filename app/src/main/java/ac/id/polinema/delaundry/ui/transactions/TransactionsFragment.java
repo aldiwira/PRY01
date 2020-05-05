@@ -1,5 +1,6 @@
 package ac.id.polinema.delaundry.ui.transactions;
 
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -58,7 +59,7 @@ public class TransactionsFragment extends Fragment implements
         Log.d(TAG, "bind: detail transactions="+ model.getTransactions());
         Log.d(TAG, "bind: status="+ model.getNoNota());
 
-        holder.setText(R.id.title, "Transaksi Aktif");
+        holder.setText(R.id.title, model.getNoNota());
         RecyclerView childRecyclerView = holder.itemView.findViewById(R.id.rv_parent);
         RecyclerViewAdapter<TransactionDetailModel> adapter = new RecyclerViewAdapter<>(
                 R.layout.item_transactions, model.getTransactions(), this::bind);
@@ -68,21 +69,13 @@ public class TransactionsFragment extends Fragment implements
     }
 
     private void bind(BaseViewHolder holder, TransactionDetailModel model) {
-        Log.d(TAG, "bind: id_harga="+ model.getIdHarga());
-        Log.d(TAG, "bind: status="+ model.getStatusString());
-
+        TextView tvStatus = holder.itemView.findViewById(R.id.tv_status);
         holder.setText(R.id.tv_weight, model.getBobot() + " Kg")
               .setText(R.id.tv_status, model.getStatusString());
 
-        int color;
-        if (!model.getStatus()) {
-            color = getContext().getResources().getColor(R.color.backgroundProggress);
-        } else {
-            color = getContext().getResources().getColor(R.color.backgroundDone);
-        }
-
-        TextView tvStatus = holder.itemView.findViewById(R.id.tv_status);
-        tvStatus.setBackgroundColor(color);
+        int color = !model.getStatus() ? R.color.tint_green : R.color.tint_red;
+        ColorStateList stateList = requireContext().getResources().getColorStateList(color);
+        tvStatus.setBackgroundTintList(stateList);
         viewModel.fetchDataPrices().observe(getViewLifecycleOwner(), prices -> {
             for (PriceModel price : prices) {
                 if (price.getIdHarga() == model.getIdHarga()) {

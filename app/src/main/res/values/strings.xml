@@ -6,6 +6,11 @@
     <string name="title_history">History</string>
     <string name="title_account">Account</string>
 
+    <string name="intro_title_login">Welcome Back</string>
+    <string name="intro_title_register">Hi, Selamat Datang</string>
+    <string name="intro_subtite_login">Kami senang anda kembali ke kami</string>
+    <string name="intro_subtitle_register">Ayo buruan daftar kami sudah membuat sistem yang insyaallah mudah untuk digunakan</string>
+
     <!-- Label Form -->
     <string name="label_no_handphone">No Handphone</string>
     <string name="label_password">Password</string>
@@ -13,7 +18,7 @@
     <string name="label_alamat">Alamat</string>
     <string name="label_nama">Nama</string>
     <string name="label_register">Register</string>
-    <string name="label_login">Login</string>
+    <string name="label_login">Sign In</string>
     <string name="label_create_account">Create Account</string>
     <!-- ! -->
 
@@ -35,4 +40,8 @@
     <string name="lbl_antar_jemput">Antar Jemput</string>
     <string name="lbl_datang_ke_toko_terdekat">Datang Ke Toko Terdekat</string>
     <string name="lbl_metode_pengambilan_pakaian">Metode Pengambilan Pakaian</string>
+    <string name="lbl_want_login">Saya sudah Memiliki Akun</string>
+    <string name="label_want_register">Saya Ingin Membuat Akun Baru</string>
+    <string name="intro_title_createaccount">Create Account</string>
+    <string name="intro_subtitle_createaccount">Kami akan menjaga data anda seperti kami menjaga data kami sendiri. Karena anda adalah keluarga baru kami</string>
 </resources>

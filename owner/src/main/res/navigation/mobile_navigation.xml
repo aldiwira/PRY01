@@ -8,15 +8,26 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="ac.id.polinema.owner.ui.home.HomeFragment"
-        android:label="@string/title_home"
+        android:label="De Laundry"
         tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/home_to_AcceptOrder"
+            app:destination="@id/acceptOrderFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/navigation_transaction"
         android:name="ac.id.polinema.owner.ui.transactions.TransactionsFragment"
-        android:label="@string/title_transactions"
-        tools:layout="@layout/fragment_transaction" />
+        android:label="Transaksi"
+        tools:layout="@layout/fragment_transaction">
+        <action
+            android:id="@+id/home_to_detailTransaction"
+            app:destination="@id/detailTransactionFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_history"
@@ -25,8 +36,47 @@
         tools:layout="@layout/fragment_history" />
 
     <fragment
-        android:id="@+id/navigation_account"
-        android:name="ac.id.polinema.owner.ui.account.AccountFragment"
+        android:id="@+id/navigation_price"
+        android:name="ac.id.polinema.owner.ui.price.PriceFragment"
         android:label="@string/title_account"
-        tools:layout="@layout/fragment_account" />
+        tools:layout="@layout/fragment_price" >
+        <action
+            android:id="@+id/home_to_editPriceActivity"
+            app:destination="@id/editPriceActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/editPriceActivity"
+        android:name="ac.id.polinema.owner.ui.price.EditPriceActivity"
+        android:label="activity_edit_price"
+        tools:layout="@layout/activity_edit_price" >
+        <argument
+            android:name="data_price"
+            app:argType="ac.id.polinema.owner.model.PriceModel"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </activity>
+    <fragment
+        android:id="@+id/detailTransactionFragment"
+        android:name="ac.id.polinema.owner.ui.transactions.DetailTransactionFragment"
+        android:label="DetailTransactionFragment" >
+        <argument
+            android:name="data"
+            app:argType="ac.id.polinema.owner.model.TransactionDetailModel[]" />
+        <argument
+            android:name="transaction_by"
+            app:argType="string" />
+        <argument
+            android:name="transaction_created"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/acceptOrderFragment"
+        android:name="ac.id.polinema.owner.ui.home.AcceptOrderFragment"
+        android:label="fragment_accept_order"
+        tools:layout="@layout/fragment_accept_order" >
+        <argument
+            android:name="data"
+            app:argType="ac.id.polinema.owner.model.TransactionModel" />
+    </fragment>
+
 </navigation>

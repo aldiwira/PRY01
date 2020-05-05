@@ -1,46 +1,63 @@
 package ac.id.polinema.delaundry.model;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+@Entity(tableName = "user")
 public class UserModel {
 
-    @SerializedName("id_user")
+    @NonNull
+    @PrimaryKey
+    @ColumnInfo(name = "idUser")
+    @SerializedName("idUser")
     @Expose
     private String idUser;
 
-    @SerializedName("name")
+    @ColumnInfo(name = "nama")
+    @SerializedName("nama")
     @Expose
     private String name;
 
-    @SerializedName("no_handphone")
+    @ColumnInfo(name = "noHp")
+    @SerializedName("noHp")
     @Expose
-    private String noHandphone;
+    private String noHp;
 
+    @ColumnInfo(name = "password")
     @SerializedName("password")
     @Expose
     private String password;
 
-    @SerializedName("address")
+    @ColumnInfo(name = "alamat")
+    @SerializedName("alamat")
     @Expose
     private String address;
 
+    @Ignore
     public UserModel() {
     }
 
-    public UserModel(String idUser, String name, String noHandphone, String password, String address) {
+    public UserModel(@NonNull String idUser, String name, String noHp, String password,
+                     String address) {
         this.idUser = idUser;
         this.name = name;
-        this.noHandphone = noHandphone;
+        this.noHp = noHp;
         this.password = password;
         this.address = address;
     }
 
+    @NonNull
     public String getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(String idUser) {
+    public void setIdUser(@NonNull String idUser) {
         this.idUser = idUser;
     }
 
@@ -52,12 +69,12 @@ public class UserModel {
         this.name = name;
     }
 
-    public String getNoHandphone() {
-        return noHandphone;
+    public String getNoHp() {
+        return noHp;
     }
 
-    public void setNoHandphone(String noHandphone) {
-        this.noHandphone = noHandphone;
+    public void setNoHp(String noHp) {
+        this.noHp = noHp;
     }
 
     public String getPassword() {

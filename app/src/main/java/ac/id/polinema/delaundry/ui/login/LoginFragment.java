@@ -10,7 +10,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
 
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
@@ -25,7 +24,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static ac.id.polinema.delaundry.repository.Utils.safeNavigate;
+import static ac.id.polinema.delaundry.Utils.safeNavigate;
 import static ac.id.polinema.delaundry.ui.login.LoginFragmentDirections.loginToHome;
 
 public class LoginFragment extends Fragment implements Validator.ValidationListener {

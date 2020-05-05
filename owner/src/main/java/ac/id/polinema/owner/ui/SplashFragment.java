@@ -37,6 +37,5 @@ public class SplashFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         new Handler().postDelayed(runAsync, 3000);
-        getView();
     }
 }

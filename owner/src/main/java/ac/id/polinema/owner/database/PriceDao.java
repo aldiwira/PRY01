@@ -17,7 +17,7 @@ public interface PriceDao {
     @Query("SELECT * FROM prices")
     List<PriceModel> getAll();
 
-    @Query("SELECT id_harga FROM prices WHERE tipe IN (:types)")
+    @Query("SELECT idHarga FROM prices WHERE tipe IN (:types)")
     List<Integer> getIdBytype(List<String> types);
 
     @Query("DELETE FROM prices")

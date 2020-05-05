@@ -24,7 +24,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static ac.id.polinema.delaundry.repository.Utils.safeNavigate;
+import static ac.id.polinema.delaundry.Utils.safeNavigate;
 
 public class HomeFragment extends Fragment implements RecyclerViewAdapter.Bind<PriceModel> {
 

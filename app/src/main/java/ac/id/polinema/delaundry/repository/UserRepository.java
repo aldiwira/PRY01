@@ -7,83 +7,68 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import ac.id.polinema.delaundry.App;
-import ac.id.polinema.delaundry.api.ApiService;
+import ac.id.polinema.delaundry.api.Response;
+import ac.id.polinema.delaundry.database.UserDao;
 import ac.id.polinema.delaundry.helper.ApiHelper;
 import ac.id.polinema.delaundry.model.UserModel;
 
-import static ac.id.polinema.delaundry.repository.Utils.isConnected;
-import static ac.id.polinema.delaundry.repository.Utils.showMessage;
+import static ac.id.polinema.delaundry.Utils.showMessage;
 
-public class UserRepository {
+public class UserRepository extends Repository {
 
-    private Context context;
-    private ApiService service;
-    private MutableLiveData<Boolean> liveResult;
+    private UserDao dao;
 
     public UserRepository(Context context) {
-        this.context = context;
-        this.service = ApiHelper.getInstance();
+        super(context);
+        dao = database.userDao();
+    }
 
-        liveResult = new MutableLiveData<>();
+    public void loadUserActive() {
+        executorService.submit(() -> {
+            UserModel user = dao.get().get(0);
+            App.setUserModel(user);
+        });
     }
 
     public LiveData<Boolean> register(String noHandphone) {
-        if (isConnected(context)) {
-            service.register(noHandphone).enqueue(new ApiHelper.EnQueue<>((response) -> {
-                boolean isSuccess = response.getStatus() == 200;
-                liveResult.postValue(isSuccess);
-                if (!isSuccess) {
-                    showMessage(context, response.getMessage());
-                }
-            }));
-        } else {
-            showMessage(context,"Please Check Internet Connection.");
-        }
+        MutableLiveData<Boolean> liveResult = new MutableLiveData<>();
+        service.register(noHandphone).enqueue(new ApiHelper.EnQueue<>(response -> {
+            showMessage(context, response.getMessage());
+            liveResult.postValue(response.getStatus() == 200);
+        }));
 
         return liveResult;
     }
 
     public LiveData<Boolean> createAccount(UserModel model) {
-        if (isConnected(context)) {
-            service.createAccount(model).enqueue(new ApiHelper.EnQueue<>((response) -> {
-                UserModel user = (UserModel) response.getData();
-                App.setSharedPreferences(App.IS_FIRST_TIME_LAUNCH, false);
-                App.setSharedPreferences(App.NO_HANDPHONE, user.getNoHandphone());
-                App.setSharedPreferences(App.KEY_ID_USER, user.getIdUser());
-                Log.d("TAG", "createAccount: "+ user.getIdUser());
-
-                boolean isSuccess = response.getStatus() == 200;
-                liveResult.postValue(isSuccess);
-                if (!isSuccess) {
-                    showMessage(context, response.getMessage());
-                }
-            }));
-        } else {
-            showMessage(context,"Please Check Internet Connection.");
-        }
-
+        MutableLiveData<Boolean> liveResult = new MutableLiveData<>();
+        service.createAccount(model).enqueue(new ApiHelper.EnQueue<>(response -> {
+            success(response);
+            liveResult.postValue(response.getStatus() == 200);
+        }));
         return liveResult;
     }
 
     public LiveData<Boolean> login(String noHandphone, String password) {
-        if (isConnected(context)) {
-            service.login(noHandphone, password).enqueue(new ApiHelper.EnQueue<>((response) -> {
-                UserModel user = (UserModel) response.getData();
-                App.setSharedPreferences(App.IS_FIRST_TIME_LAUNCH, false);
-                App.setSharedPreferences(App.NO_HANDPHONE, user.getNoHandphone());
-                App.setSharedPreferences(App.KEY_ID_USER, user.getIdUser());
-                Log.d("TAG", "createAccount: "+ user.getIdUser());
-
-                boolean isSuccess = response.getStatus() == 200;
-                liveResult.postValue(isSuccess);
-                if (!isSuccess) {
-                    showMessage(context, response.getMessage());
-                }
-            }));
-        } else {
-            showMessage(context,"Please Check Internet Connection.");
-        }
-
+        MutableLiveData<Boolean> liveResult = new MutableLiveData<>();
+        service.login(noHandphone, password).enqueue(new ApiHelper.EnQueue<>(response -> {
+            success(response);
+            liveResult.postValue(response.getStatus() == 200);
+        }));
         return liveResult;
+    }
+
+    private void success(Response response) {
+        Log.d(TAG, "success: "+ response.getStatus());
+        Log.d(TAG, "success: "+ response.getMessage());
+
+        UserModel user = (UserModel) response.getData();
+        App.setSharedPreferences(App.IS_FIRST_TIME_LAUNCH, false);
+        App.setSharedPreferences(App.NO_HANDPHONE, user.getNoHp());
+        App.setSharedPreferences(App.KEY_ID_USER, user.getIdUser());
+        executorService.submit(() -> {
+            dao.remove();
+            dao.save(user);
+        });
     }
 }

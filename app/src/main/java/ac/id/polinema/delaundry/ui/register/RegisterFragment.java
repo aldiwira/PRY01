@@ -23,7 +23,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static ac.id.polinema.delaundry.repository.Utils.safeNavigate;
+import static ac.id.polinema.delaundry.Utils.safeNavigate;
 import static ac.id.polinema.delaundry.ui.register.RegisterFragmentDirections.registerToCreateAccount;
 
 public class RegisterFragment extends Fragment implements Validator.ValidationListener {

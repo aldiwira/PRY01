@@ -69,6 +69,7 @@ public class LoginFragment extends Fragment implements
         repository.login(noHandphone, password).observe(this, result -> {
             if (result) {
                 safeNavigate(getView(), loginToHome());
+                getActivity().finish();
             }
         });
     }
@@ -78,8 +79,6 @@ public class LoginFragment extends Fragment implements
         for (ValidationError error : errors) {
             View view = error.getView();
             String message = error.getCollatedErrorMessage(getContext());
-
-            // Display error messages ;)
             if (view instanceof EditText) {
                 ((EditText) view).setError(message);
             } else {

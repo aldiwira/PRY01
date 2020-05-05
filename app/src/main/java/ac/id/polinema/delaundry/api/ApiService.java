@@ -17,15 +17,15 @@ public interface ApiService {
 
     @FormUrlEncoded
     @POST("/user/register")
-    Call<Response<Boolean>> register(@Field("no_handphone") String no_handphone);
+    Call<Response<Boolean>> register(@Field("noHp") String noHp);
 
     @POST("/user/register/account")
     Call<Response<UserModel>> createAccount(@Body UserModel userModel);
 
     @FormUrlEncoded
     @POST("/user/login")
-    Call<Response<UserModel>> login(@Field("no_handphone") String no_handphone,
-                                  @Field("password") String password);
+    Call<Response<UserModel>> login(@Field("noHp") String noHp,
+                                    @Field("password") String password);
 
     @POST("/order")
     Call<Response<Boolean>> createTransaction(@Body BodyRequest.Order order);
@@ -34,7 +34,7 @@ public interface ApiService {
     Call<Response<List<TransactionModel>>> getTransactions(@Path("idUser") String queries);
 
     @GET("/order/{idUser}/history")
-    Call<Response<TransactionModel>> getHistory(@Path("idUser") String idUser);
+    Call<Response<List<TransactionModel>>> getHistory(@Path("idUser") String idUser);
 
     @GET("/prices")
     Call<Response<List<PriceModel>>> getPrices();

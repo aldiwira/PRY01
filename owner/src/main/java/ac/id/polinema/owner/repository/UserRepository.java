@@ -1,7 +1,6 @@
 package ac.id.polinema.owner.repository;
 
 import android.content.Context;
-import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -27,13 +26,9 @@ public class UserRepository extends Repository {
                 UserModel user = (UserModel) response.getData();
                 App.setSharedPreferences(App.NO_HANDPHONE, user.getNoHandphone());
                 App.setSharedPreferences(App.KEY_ID_USER, user.getIdUser());
-                Log.d("TAG", "createAccount: "+ user.getIdUser());
 
-                boolean isSuccess = response.getStatus() == 200;
-                liveResult.postValue(isSuccess);
-                if (!isSuccess) {
-                    showMessage(context, response.getMessage());
-                }
+                showMessage(context, response.getMessage());
+                liveResult.postValue(response.getStatus() == 200);
             }));
         }
 

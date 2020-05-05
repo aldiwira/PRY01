@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import ac.id.polinema.delaundry.App;
@@ -18,7 +19,7 @@ import ac.id.polinema.delaundry.helper.ApiHelper;
 import ac.id.polinema.delaundry.helper.DbHelper;
 import ac.id.polinema.delaundry.model.TransactionModel;
 
-import static ac.id.polinema.delaundry.repository.Utils.isConnected;
+import static ac.id.polinema.delaundry.Utils.isConnected;
 
 public class TransactionRepository {
 
@@ -27,26 +28,30 @@ public class TransactionRepository {
     private Context context;
     private ApiService api;
     private AppDatabase database;
+    private ExecutorService executorService;
 
     public TransactionRepository(Context context) {
         this.context = context;
         api = ApiHelper.getInstance();
         database = DbHelper.instance(context);
+        executorService = Executors.newSingleThreadExecutor();
     }
 
-    public MutableLiveData<Boolean> order(List<String> types) {
+    public MutableLiveData<Boolean> order(List<String> types, String method) {
         PriceDao dao = database.priceDao();
         BodyRequest.Order order = new BodyRequest.Order();
         MutableLiveData<Boolean> liveStatus = new MutableLiveData<>();
 
         if (isConnected(context)) {
-            Executors.newSingleThreadExecutor().submit(() -> {
+            executorService.submit(() -> {
                 List<Integer> ids = dao.getIdBytype(types);
                 order.setIdUser(App.getIdUser());
                 order.setIdPrices(ids);
+                order.setMethodDelivery(method);
                 api.createTransaction(order)
                    .enqueue(new ApiHelper.EnQueue<>(response -> {
-                       Log.d("TAG", "order: "+ response.getData().toString());
+                       Log.i("TAG", "order: status code="+ response.getStatus());
+                       Log.i("TAG", "order: message="+ response.getMessage());
                        liveStatus.postValue(true);
                 }));
             });
@@ -63,10 +68,20 @@ public class TransactionRepository {
         api.getTransactions(App.getIdUser())
            .enqueue(new ApiHelper.EnQueue<>(response -> {
                List<TransactionModel> transactionList = (List<TransactionModel>) response.getData();
-               // TODO : Caching ke dalam database local
-
                liveData.postValue(transactionList);
         }));
+
+        return liveData;
+    }
+
+    public LiveData<List<TransactionModel>> getDoneTransaction() {
+        MutableLiveData<List<TransactionModel>> liveData = new MutableLiveData<>();
+
+        api.getHistory(App.getIdUser())
+           .enqueue(new ApiHelper.EnQueue<>(response -> {
+               List<TransactionModel> transactionList = (List<TransactionModel>) response.getData();
+               liveData.postValue(transactionList);
+           }));
 
         return liveData;
     }

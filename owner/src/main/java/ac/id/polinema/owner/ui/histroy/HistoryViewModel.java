@@ -1,19 +1,28 @@
 package ac.id.polinema.owner.ui.histroy;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
+import android.app.Application;
 
-public class HistoryViewModel extends ViewModel {
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
 
-    private MutableLiveData<String> mText;
+import java.util.List;
 
-    public HistoryViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is notifications fragment");
+import ac.id.polinema.owner.model.TransactionModel;
+import ac.id.polinema.owner.repository.TransactionRepository;
+
+public class HistoryViewModel extends AndroidViewModel {
+
+    private TransactionRepository transactionRepository;
+
+    public HistoryViewModel(@NonNull Application application) {
+        super(application);
+        transactionRepository = new TransactionRepository(application);
     }
 
-    public LiveData<String> getText() {
-        return mText;
+    public void observeDataHistory(LifecycleOwner owner,
+                                   Observer<List<TransactionModel>> observer) {
+        transactionRepository.getHistory().observe(owner, observer);
     }
 }

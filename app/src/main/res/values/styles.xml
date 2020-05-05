@@ -1,11 +1,41 @@
 <resources>
 
-    <!-- Base application theme. -->
+    <!-- Launcher and Authentikasi theme-->
+    <style name="AppStart" parent="Theme.MaterialComponents.Light.NoActionBar" >
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!-- Aplication theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!-- Instance TextInputLayout.FilledBox Material Design -->
+    <style name="AuthTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="boxBackgroundColor">@color/backgroundLight2</item>
+        <item name="android:textColorHint">@android:color/primary_text_light</item>
+        <item name="boxStrokeColor">@color/colorPrimary</item>
+        <item name="helperTextEnabled">true</item>
+        <item name="helperTextTextColor">@android:color/primary_text_light</item>
+        <item name="hintTextColor">@android:color/primary_text_light</item>
+        <item name="fontFamily">@font/lato_regular</item>
+    </style>
+
+    <!-- For Phone Number -->
+    <style name="PhoneNumberAuthTextInputLayout" parent="AuthTextInputLayout">
+        <item name="counterEnabled">true</item>
+        <item name="counterMaxLength">15</item>
+        <item name="counterTextColor">@android:color/primary_text_light</item>
+    </style>
+
+    <!-- For Password -->
+    <style name="PasswordAuthTextInputLayout" parent="AuthTextInputLayout">
+        <item name="endIconMode">password_toggle</item>
     </style>
 
 </resources>

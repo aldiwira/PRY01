@@ -4,9 +4,11 @@
     <!-- Menu title -->
     <string name="title_activity_home">HomeActivity</string>
     <string name="title_home">Home</string>
-    <string name="title_transactions">Transaction</string>
+    <string name="title_transactions">Transaksi</string>
     <string name="title_history">History</string>
-    <string name="title_account">Account</string>
+    <string name="title_account">Setting</string>
+
+    <string name="intro_login">Harapan kami adalah membantu untuk kesuksesan bisnia anda</string>
 
     <!-- Label Form -->
     <string name="label_no_handphone">No Handphone</string>
@@ -29,4 +31,11 @@
 
     <!-- Warning Form -->
     <string name="warning_empty">Form ini harus di isi.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="btn_save">Simpan</string>
+    <string name="label_price">Harga</string>
+    <string name="label_kelas">Kelas</string>
+    <string name="label_tipe">Tipe</string>
 </resources>

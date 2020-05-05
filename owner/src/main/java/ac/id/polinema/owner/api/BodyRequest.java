@@ -6,36 +6,66 @@ import java.util.List;
 
 public class BodyRequest {
 
+    public static class Weight {
+        @SerializedName("id") int id;
+        @SerializedName("weight") int weight;
+
+        public Weight(int id) {
+            this.id = id;
+        }
+
+        public Weight(int id, int weight) {
+            this.id = id;
+            this.weight = weight;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public int getWeight() {
+            return weight;
+        }
+
+        public void setWeight(int weight) {
+            this.weight = weight;
+        }
+    }
+
     public static class Order {
 
-        @SerializedName("id_user")
-        private String idUser;
+        @SerializedName("idBill")
+        private String idBill;
 
-        @SerializedName("id_harga")
-        private List<Integer> idPrices;
+        @SerializedName("weights")
+        private List<Weight> weights;
 
         public Order(){
         }
 
-        public Order(String idUser, List<Integer> idPrices) {
-            this.idUser = idUser;
-            this.idPrices = idPrices;
+        public Order(String idBill, List<Weight> weights) {
+            this.idBill = idBill;
+            this.weights = weights;
         }
 
-        public String getIdUser() {
-            return idUser;
+        public String getIdBill() {
+            return idBill;
         }
 
-        public void setIdUser(String idUser) {
-            this.idUser = idUser;
+        public void setIdBill(String idBill) {
+            this.idBill = idBill;
         }
 
-        public List<Integer> getIdPrices() {
-            return idPrices;
+        public List<Weight> getWeights() {
+            return weights;
         }
 
-        public void setIdPrices(List<Integer> idPrices) {
-            this.idPrices = idPrices;
+        public void setWeights(List<Weight> weights) {
+            this.weights = weights;
         }
     }
     /* End Class Order */

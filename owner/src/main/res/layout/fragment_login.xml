@@ -7,24 +7,50 @@
     tools:context=".ui.login.LoginFragment"
     android:background="@color/backgroundLight" >
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginBottom="16dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/img_login"
+        app:layout_constraintBottom_toTopOf="@+id/subtitle"
+        app:layout_constraintEnd_toEndOf="@+id/subtitle"
+        app:layout_constraintStart_toStartOf="@+id/subtitle"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/subtitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:fontFamily="@font/lato_light"
+        android:text="@string/intro_login"
+        android:textAlignment="center"
+        android:textColor="@android:color/primary_text_light"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintEnd_toEndOf="@+id/No_TeleponInputLayout"
+        app:layout_constraintStart_toStartOf="@+id/No_TeleponInputLayout" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.55" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/No_TeleponInputLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="16dp"
-        android:textColorHint="@android:color/primary_text_light"
-        app:counterEnabled="true"
-        app:counterMaxLength="15"
-        app:counterTextColor="@android:color/primary_text_light"
-        app:boxBackgroundColor="@color/backgroundLight2"
-        app:boxStrokeColor="@color/colorPrimary"
-        app:helperTextTextColor="@android:color/primary_text_light"
-        app:hintTextColor="@android:color/primary_text_light"
+        android:layout_marginTop="16dp"
+        android:theme="@style/PhoneNumberAuthTextInputLayout"
         app:helperText="@string/helper_no_handphone"
-        app:helperTextEnabled="true"
-        app:layout_constraintBottom_toTopOf="@+id/PasswordInputLayout"
+        app:layout_constraintTop_toBottomOf="@id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -43,17 +69,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="16dp"
-        android:textColorHint="@android:color/primary_text_light"
-        app:boxBackgroundColor="@color/backgroundLight2"
-        app:boxStrokeColor="@color/colorPrimary"
-        app:endIconMode="password_toggle"
-        app:endIconTint="@android:color/primary_text_light"
+        android:layout_marginTop="16dp"
+        android:theme="@style/PasswordAuthTextInputLayout"
         app:helperText="@string/helper_password"
-        app:helperTextEnabled="true"
-        app:helperTextTextColor="@android:color/primary_text_light"
-        app:hintTextColor="@android:color/primary_text_light"
-        app:layout_constraintBottom_toTopOf="@+id/tv_create_new_account"
+        app:layout_constraintTop_toBottomOf="@+id/No_TeleponInputLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -71,24 +90,10 @@
         android:id="@+id/btn_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="28dp"
+        android:layout_margin="32dp"
         android:text="@string/label_login"
         android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/PasswordInputLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_create_new_account"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:text="Saya Ingin Membuat Akun Baru"
-        android:textStyle="bold"
-        android:textColor="@color/colorPrimary"
-        app:layout_constraintBottom_toTopOf="@id/btn_login"
-        app:layout_constraintStart_toStartOf="@+id/No_TeleponInputLayout" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

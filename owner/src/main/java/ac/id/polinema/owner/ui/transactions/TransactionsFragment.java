@@ -128,7 +128,7 @@ public class TransactionsFragment extends Fragment implements
                 @Override
                 public void onItemSwipeMoving(Canvas canvas, RecyclerView.ViewHolder viewHolder,
                                               float dX, float dY, boolean isCurrentlyActive) {
-                    canvas.drawColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+                    canvas.drawColor(ContextCompat.getColor(getContext(), R.color.backgroundLight2));
                 }
             };
 }

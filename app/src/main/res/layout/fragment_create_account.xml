@@ -52,7 +52,8 @@
             android:id="@+id/edt_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/label_nama" />
+            android:hint="@string/label_nama"
+            android:inputType="textPersonName" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -72,9 +73,10 @@
             android:id="@+id/edt_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorHint="@android:color/primary_text_light"
+            android:hint="@string/label_alamat"
+            android:inputType="textPersonName|text"
             android:textColor="@android:color/primary_text_light"
-            android:hint="@string/label_alamat" />
+            android:textColorHint="@android:color/primary_text_light" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout

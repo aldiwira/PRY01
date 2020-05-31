@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 
 import ac.id.polinema.delaundry.R;
+import ac.id.polinema.delaundry.Utils;
 import ac.id.polinema.delaundry.model.PriceModel;
 import ac.id.polinema.delaundry.model.TransactionDetailModel;
 import ac.id.polinema.delaundry.model.TransactionModel;
@@ -31,6 +32,7 @@ public class TransactionsFragment extends Fragment implements
     private static final String TAG = TransactionsFragment.class.getSimpleName();
 
     private TransactionsViewModel viewModel;
+    private RecyclerViewAdapter<TransactionModel> adapter;
 
     @BindView(R.id.rv_transaction) RecyclerView recyclerView;
 
@@ -45,8 +47,8 @@ public class TransactionsFragment extends Fragment implements
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        RecyclerViewAdapter<TransactionModel> adapter = new RecyclerViewAdapter<>(
-                R.layout.item_container_nested_recyclerview, null, this);
+        adapter = new RecyclerViewAdapter<>(
+                R.layout.item_container_transaction, null, this);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
@@ -59,7 +61,11 @@ public class TransactionsFragment extends Fragment implements
         Log.d(TAG, "bind: detail transactions="+ model.getTransactions());
         Log.d(TAG, "bind: status="+ model.getNoNota());
 
-        holder.setText(R.id.title, model.getNoNota());
+        String date = Utils.getDateReadable(model.getUpdatedAt());
+        String time = Utils.getTimeReadable(model.getUpdatedAt());
+        holder.setText(R.id.tv_title, model.getNoNota())
+                .setText(R.id.tv_subtitle, date + " : " + time);
+
         RecyclerView childRecyclerView = holder.itemView.findViewById(R.id.rv_parent);
         RecyclerViewAdapter<TransactionDetailModel> adapter = new RecyclerViewAdapter<>(
                 R.layout.item_transactions, model.getTransactions(), this::bind);
@@ -72,6 +78,11 @@ public class TransactionsFragment extends Fragment implements
         TextView tvStatus = holder.itemView.findViewById(R.id.tv_status);
         holder.setText(R.id.tv_weight, model.getBobot() + " Kg")
               .setText(R.id.tv_status, model.getStatusString());
+
+        int position = holder.getAdapterPosition();
+        if (adapter.getData().size() == position) {
+            holder.setGone(R.id.view, true);
+        }
 
         int color = !model.getStatus() ? R.color.tint_green : R.color.tint_red;
         ColorStateList stateList = requireContext().getResources().getColorStateList(color);

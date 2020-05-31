@@ -15,14 +15,14 @@
         android:layout_marginBottom="24dp"
         android:scaleType="fitXY"
         android:src="@drawable/img_register"
-        app:layout_constraintBottom_toTopOf="@+id/title"
+        app:layout_constraintBottom_toTopOf="@+id/tv_subtitle"
         app:layout_constraintEnd_toEndOf="@+id/No_TeleponInputLayout"
         app:layout_constraintStart_toStartOf="@+id/No_TeleponInputLayout"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="ContentDescription" />
 
     <TextView
-        android:id="@+id/title"
+        android:id="@+id/tv_subtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/raleway_bold"
@@ -71,6 +71,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/label_no_handphone"
+            android:inputType="number"
             android:textColor="@android:color/primary_text_light"
             android:textColorHint="@android:color/primary_text_light" />
     </com.google.android.material.textfield.TextInputLayout>
